@@ -1,27 +1,27 @@
+'use client'
+
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
 import Logo from '@/data/logo.svg'
+import LightLogo from '@/data/Ultrared-logo-white-no-bg.svg'
+import DarkLogo from '@/data/Ultrared-logo-black-no-bg.svg'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
+import { useTheme } from 'next-themes'
 
 const Header = () => {
+  const { theme, setTheme, resolvedTheme } = useTheme()
+
   return (
-    <header className="flex items-center justify-between py-10">
+    <header className="flex items-center justify-between px-2 pb-10 sm:px-4">
       <div>
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <div className="flex items-center justify-between">
             <div className="mr-3">
-              <Logo />
+              {theme === 'dark' || resolvedTheme === 'dark' ? <LightLogo /> : <DarkLogo />}
             </div>
-            {typeof siteMetadata.headerTitle === 'string' ? (
-              <div className="hidden h-6 text-2xl font-semibold sm:block">
-                {siteMetadata.headerTitle}
-              </div>
-            ) : (
-              siteMetadata.headerTitle
-            )}
           </div>
         </Link>
       </div>
