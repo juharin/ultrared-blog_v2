@@ -10,9 +10,13 @@ import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import SearchButton from './SearchButton'
 import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 const Header = () => {
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
+
+  useEffect(() => setMounted(true), [])
 
   return (
     <header className="flex items-center justify-between px-2 pb-10 sm:px-4">
@@ -20,7 +24,11 @@ const Header = () => {
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <div className="flex items-center justify-between">
             <div className="mr-3">
-              {theme === 'dark' || resolvedTheme === 'dark' ? <LightLogo /> : <DarkLogo />}
+              {mounted && (theme === 'dark' || resolvedTheme === 'dark') ? (
+                <LightLogo />
+              ) : (
+                <DarkLogo />
+              )}
             </div>
           </div>
         </Link>
